@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/my_custom_style.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-mybg">
+        @Html.ActionLink("My ASP.NET Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand logocls mytext" })
+        <button class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <i class="fa fa-home mytext"></i>
+                    @Html.ActionLink("Home", "index", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext" })
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-folder-open mytext"></i>
+                    @Html.ActionLink("Fields", "fields", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext" })
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-globe mytext"></i>
+                    @Html.ActionLink("About", "about", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext" })
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-envelope mytext"></i>
+                    @Html.ActionLink("Contact", "contact", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext" })
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse justify-content-center">
+            <ul class="navbar-nav">
+                @if (Session["login_check"] != null)
+                {
+                    <li>
+                        <i class="fa fa-user mytext"></i>
+                        @Html.ActionLink("Welcome " + (string)Session["username"], "index", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext inactiveLink" })
+                    </li>
+                    <li>
+                        <i class="fa fa-sign-out mytext"></i>
+                        @*@Ajax.ActionLink("Log Out", "logout", "Home", new AjaxOptions{ HttpMethod = "GET", }, new { @class = "nav-item navbar-brand mytext" })*@
+                        @Html.ActionLink("Log Out", "logout", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext" })
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <i class="fa fa-user mytext"></i>
+                        @Html.ActionLink("Log In", "index", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext", data_toggle = "modal", data_target = "#myloginform" })
+                    </li>
+                    <li>
+                        <i class="fa fa-lock mytext"></i>
+                        @Html.ActionLink("Register", "index", "Home", new { area = "" }, new { @class = "nav-item navbar-brand mytext", data_toggle = "modal", data_target = "#myregform" })
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+
+        @RenderBody()
+
+        @if (Session["login_check"] == null)
+        {
+            Html.RenderPartial("_login");
+            Html.RenderPartial("_register");
+        }
+
+
+        <!-- This is Login Form -->
+        @*@{Html.RenderAction("login"); }*@
+
+        <!-- This is Register Form -->
+        @*@{Html.RenderAction("register"); }*@
+    </div>
+
+    <footer class="my_footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>
+                        About Us
+                    </h2>
+                    <p class="ms-3">
+                        Welcome to Your Property Website, your one-stop destination for finding the perfect properties.
+                        Our mission is to help you discover the home of your dreams, whether you're looking to buy or rent.
+                    </p>
+                    <p class="ms-3">
+                        With years of experience in the real estate industry, we have a deep understanding of the market
+                        and can provide you with valuable insights and advice.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h2>
+                        Important Links
+                    </h2>
+                    <ul>
+                        <li class="nav-link">
+                            @Html.ActionLink("Filds", "fields", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-link">
+                            @Html.ActionLink("About", "about", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-link">
+                            @Html.ActionLink("Contact", "contact", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-link">
+                            @Html.ActionLink("Web Development", "fields", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-link">
+                            @Html.ActionLink("Desktop Development", "fields", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-link">
+                            @Html.ActionLink("Mobile Development", "fields", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-link">
+                            @Html.ActionLink("Networking", "fields", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h2>
+                        Contact Us
+                    </h2>
+                    <ul>
+                        <li class="nav-link">
+                            <i class="fa fa-envelope"></i>
+                            <a class="navbar-brand" href="https://www.gmail.com/" target="_blank">Email</a>
+                            @*@Html.ActionLink("Email", "https://www.gmail.com/", new { area = "" }, new { @class = "navbar-brand" })*@
+                        </li>
+                        <li class="nav-link">
+                            <i class="fa fa-facebook"></i>
+                            <a class="navbar-brand" href="https://www.facebook.com/" target="_blank">Facebook</a>
+                            @*@Html.ActionLink("Facebook", "contact", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        </li>
+                        <li class="nav-link">
+                            <i class="fa fa-twitter"></i>
+                            <a class="navbar-brand" href="https://www.twitter.com/" target="_blank">Twitter</a>
+                            @*@Html.ActionLink("Twitter", "contact", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        </li>
+                        <li class="nav-link">
+                            <i class="fa fa-youtube"></i>
+                            <a class="navbar-brand" href="https://www.youtube.com/" target="_blank">Youtube</a>
+                            @*@Html.ActionLink("Youtube", "contact", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        </li>
+                        <li class="nav-link">
+                            <i class="fa fa-instagram"></i>
+                            <a class="navbar-brand" href="https://www.instagram.com/" target="_blank">Instagram</a>
+                            @*@Html.ActionLink("Instagram", "contact", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                        </li>
+                    </ul>
+                </div>
+                <div class="sub_footer">
+                    <p>&copy;@DateTime.Now.Year - My ASP.NET Application</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

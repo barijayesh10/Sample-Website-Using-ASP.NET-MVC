@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Contact Us</h1>
+<p class="ms-3">We're Here to Help!</p>
+<p class="ms-3">Tell us what you’re looking for and we’ll get you connected to the right people.</p>
+<p class="ms-3">Stay connected with us on social media for the latest updates, news, and events.</p>
+
+
+
+
+<div class="row mt20 mb-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center bg-mybg mytext">
+                Contact
+            </div>
+            <div class="card-body">
+                <div class="d-flex">
+                    <ul>
+                        <li class="nav-link mb-3">
+                            <i class="fa fa-building-o"></i>
+                            Jay &amp; Son`s Private Limited.
+                        </li>
+                        <li class="nav-link mb-3">
+                            <i class="fa fa-map-marker"></i>
+                            Address : RO: 340, V Mall, Thakur Complex,Kandivali (East), Mumbai, India PIN: 400101.
+                        </li>
+                        <li class="nav-link mb-3">
+                            <i class="fa fa-mobile-phone"></i>
+                            Contact : 1234567890 / 0987654321
+                        </li>
+                        <li class="nav-link mb-3">
+                            <i class="fa fa-envelope"></i>
+                            Email : example@gmail.com
+                        </li>
+                        <li class="nav-link mb-3">
+                            <i class="fa fa-chrome"></i>
+                            Website : www.example.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center bg-mybg mytext">
+                Get in touch
+            </div>
+            <div class="card-body">
+                @using (Ajax.BeginForm("contact", new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "fnSucCon",
+                    OnFailure = "fnFailCon"
+                }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group mb-2">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="number">Contact number</label>
+                        <input type="text" class="form-control" maxlength="10" name="number" id="number" required>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="number">Message</label>
+                        <textarea type="text" class="form-control" id="message" name="message" required></textarea>
+                    </div>
+                    <div class="form-group text-end">
+                        <input type="submit" class="btn btn-info bg-mybg mytext" value="Send" name="Contact" id="contactbtn">
+                    </div>
+                }
+                <div id="Result_div"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fnSucCon(data) {
+        $("#Result_div").html(data);
+        $("#name").val("");
+        $("#email").val("");
+        $("#number").val("");
+        $("#message").val("");
+
+    }
+    function fnFailCon(err) {
+        $("#Result_div").html(err);
+    }
+</script>
+

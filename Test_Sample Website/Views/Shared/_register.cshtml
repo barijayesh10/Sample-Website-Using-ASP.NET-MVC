@@ -1,0 +1,84 @@
+﻿<div class="modal fade" id="myregform" tabindex="-1" role="dialog" aria-labelledby="myregform" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myregform">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="display: none; background-color: #f1f2f3;" id="reg_loader" class="text-center"> <img src="@Url.Content("~/Content/Spinner-1s-200px.gif")" alt="Loading GIF"> </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("register", new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "fnSucReg",
+                    OnFailure = "fnFailReg",
+                    LoadingElementId = "reg_loader"
+
+                }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <i class="fa fa-user"></i>
+                        <label for="Username" class="col-form-label">Username</label>
+                        <input type="text" class="form-control" id="Username" name="reg_username" value="@ViewBag.reg_username" required>
+                        <div class="invalid-feedback">Please enter your Username.</div>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-lock"></i>
+                        <label for="Password" class="col-form-label">Password</label>
+                        <input type="Password" class="form-control" id="Password" name="reg_password" value="@ViewBag.reg_password" required>
+                        <div class="invalid-feedback">Please enter your Password.</div>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-lock"></i>
+                        <label for="Password" class="col-form-label">Confirm Password</label>
+                        <input type="Password" class="form-control" id="con_pssword" name="reg_con_pssword" value="@ViewBag.reg_con_pssword" required>
+                        <div class="invalid-feedback">Please enter Confirm Password Same as Password.</div>
+                    </div>
+                    <div class="form-group text-center mt20">
+                        <input type="submit" class="btn btn-info bg-mybg mytext" value="Register" name="Register">
+                    </div>
+                    <div id="reg_error" class=""></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function fnSucReg(data) {
+        if (data == "0") {
+            location.reload();
+        }
+        else if (data == "1") {
+            $("#reg_error").html("");
+            $("#reg_error").html("This Username is already taken by another user please choose different Username.");
+            $("#reg_error").removeClass().addClass('mt-2');
+            $("#reg_error").addClass('alert alert-warning');
+        }
+        else if (data == "2") {
+            $("#reg_error").html("");
+            $("#reg_error").html("Something went wrong. Please try after some time.");
+            $("#reg_error").removeClass().addClass('mt-2');
+            $("#reg_error").addClass('alert alert-danger');
+        }
+        else if (data == "3") {
+            $("#reg_error").html("");
+            $("#reg_error").html("Please Confirm Password is Same as Password");
+            $("#reg_error").removeClass().addClass('mt-2');
+            $("#reg_error").addClass('alert alert-danger');
+        }
+        else if (data == "4") {
+            $("#reg_error").html("");
+            $("#reg_error").html("All Fields are required.");
+            $("#reg_error").removeClass().addClass('mt-2');
+            $("#reg_error").addClass('alert alert-danger');
+        }
+
+    }
+    function fnFailReg(err) {
+
+    }
+</script>

@@ -1,0 +1,58 @@
+﻿.bg-mybg {
+    background-color: #245d8f;
+}
+
+.mytext {
+    color: white;
+}
+
+.navbar-nav > li {
+    display: block;
+    position: relative;
+    height: 50px;
+    padding: 10px;
+}
+
+.navbar-nav {
+    margin-left: 60px;
+}
+
+.logocls {
+    margin-left: 70px;
+}
+
+.sub_footer {
+    background-color: #245d8f;
+    color: white;
+    height: 45px;
+    padding: 10px;
+    text-align: center !important;
+}
+
+.my_footer {
+    background-color: aliceblue;
+    text-align: justify;
+    padding-top: 20px;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+h2 {
+    margin-left: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.inactiveLink {
+    pointer-events: none;
+    cursor: default;
+}
+
+.d-flex {
+    padding-left: 18px;
+    font-size: 18px;
+}
