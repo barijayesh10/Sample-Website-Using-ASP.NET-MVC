@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,6 +33,8 @@ namespace Test_Sample_Website.Controllers
         [Route("contact")]
         public ActionResult contact()
         {
+            var countrylist = clsobj.getcountry();
+            ViewBag.countrylist = countrylist;
             return View();
         }
 
@@ -40,7 +44,12 @@ namespace Test_Sample_Website.Controllers
             return View();
         }
 
-
+        [Route("getmember")]
+        public ActionResult GetMember()
+        {
+            DataTable memberlist = clsobj.getmember();
+            return View(memberlist);
+        }
 
 
 
@@ -161,6 +170,7 @@ namespace Test_Sample_Website.Controllers
             string Email = Request.Form["email"];
             string Number = Request.Form["number"];
             string Message = Request.Form["message"];
+            string country = Request.Form["SelectedCountryId"];
             if (Name.Trim() != "" && Email.Trim() != "" && Number.Trim() != "" && Message.Trim() != "")
             {
                 int check_login = clsobj.Contact(Name, Email, Number, Message);
@@ -206,7 +216,6 @@ namespace Test_Sample_Website.Controllers
             #endregion
             return Content(result);
         }
-
 
 
 

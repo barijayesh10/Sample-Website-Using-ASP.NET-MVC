@@ -61,20 +61,24 @@
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group mb-2">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        @Html.Label("Name")
+                        @Html.TextBox("name", null, new { @class = "form-control", @id = "name", @required = "required" })
                     </div>
                     <div class="form-group mb-2">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        @Html.Label("Email")
+                        @Html.TextBox("email", null, new {@class = "form-control", @id= "email", @required = "required", type = "email" })
                     </div>
                     <div class="form-group mb-2">
-                        <label for="number">Contact number</label>
-                        <input type="text" class="form-control" maxlength="10" name="number" id="number" required>
+                        @Html.Label("Contact number")
+                        @Html.TextBox("number", null, new { @class = "form-control", @id = "number", @required = "required", @maxlength = "10" })
                     </div>
                     <div class="form-group mb-2">
-                        <label for="number">Message</label>
-                        <textarea type="text" class="form-control" id="message" name="message" required></textarea>
+                        @Html.Label("Message")
+                        @Html.TextArea("message", null, 3, 10, new { @class = "form-control", @id = "message", @required = "required" })
+                    </div>
+                    <div class="form-group mb-2">
+                        @Html.Label("Country")
+                        @Html.DropDownList("SelectedCountryId", new SelectList(ViewBag.countrylist, "Id", "Country"), "Select Country",new {@class= "form-control" })
                     </div>
                     <div class="form-group text-end">
                         <input type="submit" class="btn btn-info bg-mybg mytext" value="Send" name="Contact" id="contactbtn">
@@ -93,6 +97,7 @@
         $("#email").val("");
         $("#number").val("");
         $("#message").val("");
+        $("#SelectedCountryId :selected").text('Select Country');
 
     }
     function fnFailCon(err) {
